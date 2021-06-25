@@ -1,4 +1,6 @@
 # Write your code below game_hash
+
+require 'pry'
 def game_hash
   {
     home: {
@@ -125,5 +127,45 @@ def game_hash
     }
   }
 end
+
+def all_players
+  game_hash[:home][:players].concat(game_hash[:away][:players])
+end
+
+
+def num_points_scored(name)
+  #return indiviual player points
+  all_players.find{|player| player[:player_name] == name}[:points]
+end
+
+def shoe_size(name)
+  #return indiviual player points
+  all_players.find{|player| player[:player_name] == name}[:shoe]
+end
+
+def team_colors(team_name)
+    game_hash.each do |team|
+      if team[1][:team_name] == team_name
+        return team[1][:colors]
+      end
+    end
+
+  # if game_hash[:home][:team_name] == team_name
+  #   return game_hash[:home][:colors]
+  # end
+end
+
+def team_names
+  [game_hash[:home][:team_name], game_hash[:away][:team_name]]
+end
+
+def player_numbers(team_name)
+  game_hash.each do |team, team_hash|
+    if team_hash[:team_name] == team_name
+      return team_hash[:players].map{|p| p[:number]}
+    end
+  end
+end
+
 
 # Write code here
